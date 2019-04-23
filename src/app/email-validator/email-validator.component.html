@@ -1,3 +1,12 @@
 <ActionBar title="Email validator" class="action-bar">
     <NavigationButton text="Home" android.systemIcon="ic_menu_home" [nsRouterLink]="['/home']"></NavigationButton>
 </ActionBar>
+
+<GridLayout>
+    <StackLayout>
+        <TextField hint="Email" [(ngModel)]="email" keyboardType="email" autocorrect="false"
+        autocapitalizationType="none" class="input"></TextField>
+        <Button text="Validate" (tap)="validate()" class="btn"></Button>
+        <Label [text]="response" textWrap="true" class="output"></Label>
+    </StackLayout>
+</GridLayout>
