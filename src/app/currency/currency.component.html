@@ -1,0 +1,21 @@
+<ActionBar title="Currency converter" icon="" class="action-bar">
+    <NavigationButton text="Home" android.systemIcon="ic_menu_home" [nsRouterLink]="['/home']"></NavigationButton>
+</ActionBar>
+
+<GridLayout rows="*, *, *, *, *" columns="*, *">
+    <Label text="Amount:" row="0" col="0"></Label>
+    <TextField row="0" col="1" hint="Amount to convert" [(ngModel)]="amount"></TextField>
+
+    <Label text="Currency from:" row="1" col="0"></Label>
+    <ListPicker [items]="currencies" [(ngModel)]="selectedCurrencyFrom" row="1" col="1"></ListPicker>
+    
+
+    <Label text="Currency to:" row="2" col="0"></Label>
+    <ListPicker [items]="currencies" [(ngModel)]="selectedCurrencyTo" row="2" col="1"></ListPicker>
+
+    <Button text="Convert" row="3" col="0" colSpan="2" (tap)="convert()"></Button>
+
+    <Label [text]="conversion" row="4" col="0"></Label>
+    <Label [text]="result" row="4" col="1"></Label>
+    
+</GridLayout>
