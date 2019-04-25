@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { CurrencyExchangeData } from "./currency.model";
+import { CurrencyService } from "./currency.service";
 
 @Component({
     selector: "ns-currency",
     moduleId: module.id,
+    providers: [CurrencyService],
     templateUrl: "./currency.component.html",
     styleUrls: ["./currency.component.css"],
 
@@ -18,7 +20,7 @@ export class CurrencyComponent implements OnInit{
     conversion: string;
     result: string;
 
-    constructor(){
+    constructor(private currencyService : CurrencyService){
     }
 
     ngOnInit(){
@@ -28,14 +30,20 @@ export class CurrencyComponent implements OnInit{
         this.conversion = "";
         this.result = "";
         this.currencies = new Array();
-        this.currencies[0] = "One";
-        this.currencies[1] = "Two";
-        this.currencies[2] = "Three";
+        this.currencies[0] = "SGD";
+        this.currencies[1] = "MYR";
+        this.currencies[2] = "EUR";
     }
 
     convert(){
         this.currencyData = new CurrencyExchangeData(this.amount, this.currencies[this.selectedCurrencyFrom], this.currencies[this.selectedCurrencyTo]);
         this.conversion = this.currencyData.toString();
-        this.result = this.currencyData.amount.toString();
+        
+        this.currencyService.getExchangeRate(this.currencyData.currencyFrom, this.currencyData.currencyTo).subscribe(
+            (exchangeRate) => {
+                this.result = exchangeRate;
+            },
+            (error) => alert(error)
+        );
     }
 }
