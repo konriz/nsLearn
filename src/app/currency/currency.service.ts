@@ -9,6 +9,18 @@ import { CurrencyApiConfig as API }  from "./currency.config";
 export class CurrencyService {
     constructor(private http : Http) {}
 
+    getQuotes(){
+        return this.http.get(
+            API.apiUrl + API.listQuotes,
+            {
+                headers: this.getHeaders()
+            }
+        ).pipe(
+            map(response => response.text().replace(/[ "[\]]/g, "").split(",")),
+            catchError(this.handleErrors)
+        )
+    }
+
     getExchangeRate(currencyFrom: string, currencyTo: string){
 
         let params = new URLSearchParams();

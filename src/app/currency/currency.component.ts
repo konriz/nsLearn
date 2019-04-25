@@ -30,9 +30,13 @@ export class CurrencyComponent implements OnInit{
         this.conversion = "";
         this.result = "";
         this.currencies = new Array();
-        this.currencies[0] = "SGD";
-        this.currencies[1] = "MYR";
-        this.currencies[2] = "EUR";
+        
+        this.currencyService.getQuotes().subscribe(
+            (quotes) => {
+                this.currencies = quotes;
+            },
+            (error) => alert(error)
+        );
     }
 
     convert(){
@@ -45,5 +49,7 @@ export class CurrencyComponent implements OnInit{
             },
             (error) => alert(error)
         );
+
+        
     }
 }
