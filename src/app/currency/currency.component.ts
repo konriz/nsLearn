@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { CurrencyExchangeData } from "./currency.model";
 import { CurrencyService } from "./currency.service";
+import * as appSettings from "tns-core-modules/application-settings";
 
 @Component({
     selector: "ns-currency",
@@ -12,44 +12,75 @@ import { CurrencyService } from "./currency.service";
 })
 export class CurrencyComponent implements OnInit{
 
-    currencyData: CurrencyExchangeData;
     currencies: string[];
     amount: number;
-    selectedCurrencyFrom: number;
-    selectedCurrencyTo: number;
-    conversion: string;
-    result: string;
+    currencyFrom: number;
+    currencyTo: number;
+    converting: boolean = false;
+    gettingCurrencies: boolean = false;
+    output: string;
 
     constructor(private currencyService : CurrencyService){
     }
 
     ngOnInit(){
-        this.amount = 0;
-        this.selectedCurrencyFrom = 0;
-        this.selectedCurrencyTo = 0;
-        this.conversion = "";
-        this.result = "";
-        this.currencies = new Array();
-        
-        this.currencyService.getQuotes().subscribe(
-            (quotes) => {
-                this.currencies = quotes;
-            },
-            (error) => alert(error)
-        );
+        this.amount = 1;
+        this.currencyFrom = 0;
+        this.currencyTo = 0;
+        this.converting = false;
+        this.output = "";
+        this.getCurrencies();
     }
 
     convert(){
-        this.currencyData = new CurrencyExchangeData(this.amount, this.currencies[this.selectedCurrencyFrom], this.currencies[this.selectedCurrencyTo]);
-        this.conversion = this.currencyData.toString();
-        
-        this.currencyService.getExchangeRate(this.currencyData.currencyFrom, this.currencyData.currencyTo).subscribe(
-            (exchangeRate) => {
-                this.result = exchangeRate;
-            },
-            (error) => alert(error)
-        );
+        this.output = "";
+        this.converting = true;
 
-        
+        this.currencyService.getExchangeRate(this.getCurrencyShort(this.currencyFrom), this.getCurrencyShort(this.currencyTo)).subscribe(
+            (exchangeRate) => {
+                let result = (this.amount * +exchangeRate).toFixed(2);
+                this.converting = false;
+                this.output = this.getConversionString(result);
+            },
+            (error) => {
+                alert(error);
+                this.converting = false;
+                this.output = "0";
+            }
+        );
+    }
+
+    private getConversionString(result: string){
+        let output = this.amount + " " + this.getCurrencyShort(this.currencyFrom) + " = " + result + " " + this.getCurrencyShort(this.currencyTo);
+        return output;
+    }
+
+    private getCurrencyShort(index: number){
+        return this.currencies[index];
+    }
+
+    private getCurrencies(){
+        this.gettingCurrencies = true;
+        if(appSettings.getString("quotesString")){
+            this.setCurrencies(appSettings.getString("quotesString"));
+        } else {
+            this.currencyService.getQuotes().subscribe(
+                (quotes) => this.setCurrencies(quotes),
+                (error) => {
+                    alert(error);
+                    this.setCurrencies("");
+                }
+            );
+        }
+    }
+
+    private setCurrencies(currenciesString: string){
+        this.gettingCurrencies = false;
+        appSettings.setString("quotesString", currenciesString);
+        this.currencies = this.splitQuotes(currenciesString);
+    }
+
+    private splitQuotes(quotesString: string){
+        return quotesString.replace(/[ "[\]]/g, "").split(",");
     }
 }

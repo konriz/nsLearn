@@ -1,4 +1,12 @@
-Label {
+ListPicker {
+    height: 70;
+}
+
+.center {
     text-align: center;
     vertical-align: center;
+}
+
+StackLayout {
+    align-items: center;
 }

@@ -16,7 +16,7 @@ export class CurrencyService {
                 headers: this.getHeaders()
             }
         ).pipe(
-            map(response => response.text().replace(/[ "[\]]/g, "").split(",")),
+            map(response => response.text()),
             catchError(this.handleErrors)
         )
     }

@@ -2,20 +2,26 @@
     <NavigationButton text="Home" android.systemIcon="ic_menu_home" [nsRouterLink]="['/home']"></NavigationButton>
 </ActionBar>
 
-<GridLayout rows="*, *, *, *, *" columns="*, *">
-    <Label text="Amount:" row="0" col="0"></Label>
-    <TextField row="0" col="1" hint="Amount to convert" [(ngModel)]="amount"></TextField>
-
-    <Label text="Currency from:" row="1" col="0"></Label>
-    <ListPicker [items]="currencies" [(ngModel)]="selectedCurrencyFrom" row="1" col="1"></ListPicker>
+<StackLayout class="form center">
+    <StackLayout class="input-field">
+        <Label text="Amount:" class="label"></Label>
+        <TextField hint="Amount to convert" keyboardType="number" [(ngModel)]="amount" class="input"></TextField>
+    </StackLayout>
+        
+    <StackLayout class="input-field">
+        <Label text="Currency from:" class="label"></Label>
+        <ListPicker [items]="currencies" [(ngModel)]="currencyFrom"></ListPicker>
+    </StackLayout>
     
+    <StackLayout class="input-field">
+        <Label text="Currency to:" class="label"></Label>
+        <ListPicker [items]="currencies" [(ngModel)]="currencyTo"></ListPicker>
+    </StackLayout>
 
-    <Label text="Currency to:" row="2" col="0"></Label>
-    <ListPicker [items]="currencies" [(ngModel)]="selectedCurrencyTo" row="2" col="1"></ListPicker>
-
-    <Button text="Convert" row="3" col="0" colSpan="2" (tap)="convert()"></Button>
-
-    <Label [text]="conversion" row="4" col="0"></Label>
-    <Label [text]="result" row="4" col="1"></Label>
+        <Button text="Convert" (tap)="convert()" class="btn"></Button>
     
-</GridLayout>
+    <StackLayout class="input-field">
+        <ActivityIndicator #activityIndicator [busy]="converting" class="activity-indicator"></ActivityIndicator>
+        <Label [text]="output" class="h3"></Label>
+    </StackLayout>
+</StackLayout>
