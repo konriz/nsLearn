@@ -1,2 +1,10 @@
-<!-- https://docs.nativescript.org/angular/core-concepts/angular-navigation.html#page-router-outlet -->
-<page-router-outlet></page-router-outlet>
+<RadSideDrawer #sideDrawer>
+    <StackLayout tkDrawerContent class="sidedrawer-left">
+        <Button class="btn btn-primary" text="Home" (tap)="navigateToHome()"></Button>
+        <Button class="btn btn-primary" text="Email validator" (tap)="navigateToEmailValidator()"></Button>
+        <Button class="btn btn-primary" text="Currency converter" (tap)="navigateToCurrencyConverter()"></Button>
+    </StackLayout>
+    <page-router-outlet tkMainContent></page-router-outlet>
+</RadSideDrawer>
+
+

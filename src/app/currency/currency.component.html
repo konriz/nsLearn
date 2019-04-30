@@ -5,7 +5,7 @@
 <StackLayout class="form center">
     <StackLayout class="input-field">
         <Label text="Amount:" class="label"></Label>
-        <TextField hint="Amount to convert" keyboardType="number" [(ngModel)]="amount" class="input"></TextField>
+        <TextField hint="Amount to convert" keyboardType="number" [(ngModel)]="amount" returnKeyType="done" maxLength="9" (returnPress)="convert()" class="input"></TextField>
     </StackLayout>
         
     <StackLayout class="input-field">
@@ -22,6 +22,6 @@
     
     <StackLayout class="input-field">
         <ActivityIndicator #activityIndicator [busy]="converting" class="activity-indicator"></ActivityIndicator>
-        <Label [text]="output" class="h3"></Label>
+        <Label [text]="output" class="h3" textWrap="true"></Label>
     </StackLayout>
 </StackLayout>

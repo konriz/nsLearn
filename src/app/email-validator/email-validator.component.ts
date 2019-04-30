@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Location } from "@angular/common";
 
 import { EmailValidatorService } from "./email-validator.service";
+import { RouterExtensions } from "nativescript-angular/router";
 
 @Component({
     selector: "ns-email-validator",
@@ -14,7 +15,7 @@ export class EmailValidatorComponent implements OnInit {
     email: string;
     response: string
 
-    constructor(private emailValidatorService : EmailValidatorService, private location : Location) { }
+    constructor(private emailValidatorService : EmailValidatorService, private location : Location, private routerExtension: RouterExtensions) { }
 
     ngOnInit() {
         this.email = "";
@@ -22,7 +23,7 @@ export class EmailValidatorComponent implements OnInit {
     }
 
     goBack(){
-        this.location.back();
+        this.routerExtension.navigate(["/home"], {clearHistory: true});
     }
 
     validate(){
