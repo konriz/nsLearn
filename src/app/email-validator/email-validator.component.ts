@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Location } from "@angular/common";
 
 import { EmailValidatorService } from "./email-validator.service";
 
@@ -13,11 +14,15 @@ export class EmailValidatorComponent implements OnInit {
     email: string;
     response: string
 
-    constructor(private emailValidatorService : EmailValidatorService) { }
+    constructor(private emailValidatorService : EmailValidatorService, private location : Location) { }
 
     ngOnInit() {
         this.email = "";
         this.response = "Waiting for email to validate"
+    }
+
+    goBack(){
+        this.location.back();
     }
 
     validate(){

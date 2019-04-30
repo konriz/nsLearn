@@ -1,5 +1,5 @@
 <ActionBar title="Currency converter" icon="" class="action-bar">
-    <NavigationButton text="Home" android.systemIcon="ic_menu_home" [nsRouterLink]="['/home']"></NavigationButton>
+    <NavigationButton text="Home" android.systemIcon="ic_menu_home" (tap)="goBack()"></NavigationButton>
 </ActionBar>
 
 <StackLayout class="form center">
@@ -18,7 +18,7 @@
         <ListPicker [items]="currencies" [(ngModel)]="currencyTo"></ListPicker>
     </StackLayout>
 
-        <Button text="Convert" (tap)="convert()" class="btn"></Button>
+        <Button text="Convert" (tap)="convert()" class="btn" [isEnabled]="!gettingCurrencies"></Button>
     
     <StackLayout class="input-field">
         <ActivityIndicator #activityIndicator [busy]="converting" class="activity-indicator"></ActivityIndicator>

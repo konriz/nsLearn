@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Location } from "@angular/common";
 import { CurrencyService } from "./currency.service";
 import * as appSettings from "tns-core-modules/application-settings";
 
@@ -20,7 +21,7 @@ export class CurrencyComponent implements OnInit{
     gettingCurrencies: boolean = false;
     output: string;
 
-    constructor(private currencyService : CurrencyService){
+    constructor(private currencyService : CurrencyService, private location: Location){
     }
 
     ngOnInit(){
@@ -30,6 +31,10 @@ export class CurrencyComponent implements OnInit{
         this.converting = false;
         this.output = "";
         this.getCurrencies();
+    }
+
+    goBack(){
+        this.location.back();
     }
 
     convert(){
