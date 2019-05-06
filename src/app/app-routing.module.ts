@@ -9,8 +9,9 @@ import { CurrencyComponent } from "./currency/currency.component";
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
     { path: "home", component: HomeComponent },
-    { path: "email-validator", component: EmailValidatorComponent},
-    { path: "currency", component: CurrencyComponent }
+    { path: "email-validator", component: EmailValidatorComponent },
+    { path: "currency", component: CurrencyComponent },
+    { path: "heartstone", loadChildren: "~/app/heartstone/heartstone.module#HeartstoneModule" }
 ];
 
 @NgModule({

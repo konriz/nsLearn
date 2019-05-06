@@ -1,0 +1,9 @@
+<ActionBar title="Heartstone" class="action-bar">
+  <NavigationButton text="Home" android.systemIcon="ic_menu_home" (tap)="goBack()"></NavigationButton>
+</ActionBar>
+
+<TabView #tabView>
+    <page-router-outlet *tabItem="{title: 'Races'}" name="racesTab" actionBarVisibility="never"></page-router-outlet>
+    <page-router-outlet *tabItem="{title: 'Classes'}" name="classesTab" actionBarVisibility="never"></page-router-outlet>
+    <page-router-outlet *tabItem="{title: 'Factions'}" name="factionsTab" actionBarVisibility="never"></page-router-outlet>
+</TabView>

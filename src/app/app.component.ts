@@ -27,4 +27,9 @@ export class AppComponent {
         this.sideDrawerComponent.sideDrawer.closeDrawer();
     }
 
+    navigateToHeartstone(){
+        this.routerExtension.navigate(["/heartstone"], {clearHistory: true});
+        this.sideDrawerComponent.sideDrawer.closeDrawer();
+    }
+
  }
