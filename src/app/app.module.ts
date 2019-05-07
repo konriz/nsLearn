@@ -9,10 +9,6 @@ import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
 import { EmailValidatorComponent } from "./email-validator/email-validator.component";
 import { CurrencyComponent } from "./currency/currency.component";
-import { HeartstoneComponent } from "./heartstone/heartstone.component";
-import { HeartstoneRacesComponent } from "./heartstone/races/heartstone-races.component";
-import { HeartstoneClassesComponent } from "./heartstone/classes/heartstone-classes.component";
-import { HeartstoneFactionsComponent } from "./heartstone/factions/heartstone-factions.component";
 
 @NgModule({
     bootstrap: [

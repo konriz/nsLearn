@@ -3,7 +3,37 @@
 </ActionBar>
 
 <TabView #tabView>
-    <page-router-outlet *tabItem="{title: 'Races'}" name="racesTab" actionBarVisibility="never"></page-router-outlet>
-    <page-router-outlet *tabItem="{title: 'Classes'}" name="classesTab" actionBarVisibility="never"></page-router-outlet>
-    <page-router-outlet *tabItem="{title: 'Factions'}" name="factionsTab" actionBarVisibility="never"></page-router-outlet>
+  <StackLayout *tabItem="{title: 'Races'}">
+      <ListView [items]="info.races" (itemTap)="raceDetails($event)" class="list-group" height="100%">
+          <ng-template let-item="item">
+            <StackLayout>
+              <Label [text]="item" class="list-group-item"></Label>
+              
+            </StackLayout>
+          </ng-template>
+      </ListView>
+  </StackLayout>
+
+  <StackLayout *tabItem="{title: 'Classes'}">
+      <ListView [items]="info.classes" (itemTap)="classDetails($event)" class="list-group" height="100%">
+          <ng-template let-item="item">
+            <StackLayout>
+              <Label [text]="item" class="list-group-item"></Label>
+              
+            </StackLayout>
+          </ng-template>
+      </ListView>
+  </StackLayout>
+
+  <StackLayout *tabItem="{title: 'Factions'}">
+      <ListView [items]="info.factions" (itemTap)="factionDetails($event)" class="list-group" height="100%">
+          <ng-template let-item="item">
+            <StackLayout>
+              <Label [text]="item" class="list-group-item"></Label>
+              
+            </StackLayout>
+          </ng-template>
+      </ListView>
+  </StackLayout>
+
 </TabView>

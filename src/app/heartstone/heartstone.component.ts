@@ -1,22 +1,76 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
 import { ActivatedRoute } from "@angular/router";
+import { HeartstoneService } from "./heartstone.service";
+import { Info, Card } from "./heartstone.model";
+import { HeartstoneFilter } from "./heartstone.filter";
 
 @Component(
     {
         selector: "ns-heartstone",
         moduleId: module.id,
-        templateUrl: "./heartstone.component.html"
+        templateUrl: "./heartstone.component.html",
+        providers: [HeartstoneService]
     }
 )
 export class HeartstoneComponent implements OnInit{
 
-    constructor(private routerExtension: RouterExtensions, private activeRoute: ActivatedRoute){
+    info: Info;
+
+    constructor(private routerExtension: RouterExtensions, private activeRoute: ActivatedRoute, private service: HeartstoneService){
 
     }
 
     ngOnInit() {
+        this.service.getInfo().subscribe(
+            res => {
+                this.info = new Info(res.json());
+            }
+        );
+    }
 
+    raceDetails(args) { 
+        this.service.getByFilter(HeartstoneFilter.Race, this.info.races[args.index]).subscribe(
+            res => {
+                let cardsList = this.createCardsList(res);
+                this.showList(cardsList);
+            }
+        );
+    }
+
+    classDetails(args) { 
+        this.service.getByFilter(HeartstoneFilter.Class, this.info.classes[args.index]).subscribe(
+            res => {
+                let cardsList = this.createCardsList(res);
+                this.showList(cardsList);
+            }
+        );
+    }
+
+    factionDetails(args) { 
+        this.service.getByFilter(HeartstoneFilter.Faction, this.info.factions[args.index]).subscribe(
+            res => {
+                let cardsList = this.createCardsList(res);
+                this.showList(cardsList);
+            }
+        );
+    }
+
+    createCardsList(cardsJson: JSON){
+        let cardsList = [];
+        let cardsCount = Object.keys(cardsJson).length;
+
+        for (let index = 0; index < cardsCount; index++) {
+            cardsList.push(new Card(cardsJson[index]));
+        }
+        return cardsList;
+    }
+
+    showList(cardsList: Card[]){
+        let output = "";
+        output += (cardsList.length + " cards found\n");
+        cardsList.forEach(card => output += (card.name + "\n"));
+        alert(output);
     }
 
     goBack(){
