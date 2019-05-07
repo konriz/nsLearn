@@ -3,7 +3,7 @@ import { Http, Headers, Response } from "@angular/http";
 import { HeartstoneConfig } from "./heartstone.config";
 import { catchError, map } from "rxjs/operators";
 import { Observable } from "rxjs";
-import { HeartstoneFilter } from "./heartstone.filter";
+import { HeartstoneFilter } from "./search/filters.enum";
 import { Card } from "./heartstone.model";
 
 @Injectable()

@@ -1,6 +1,8 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
+import { FiltersComponent } from "./search/filters.component";
+import { CardsListComponent } from "./card/cardsList.component";
 import { HeartstoneComponent } from "./heartstone.component";
 
 @NgModule({
@@ -8,13 +10,17 @@ import { HeartstoneComponent } from "./heartstone.component";
         NativeScriptCommonModule,
         NativeScriptRouterModule,
         NativeScriptRouterModule.forChild([
-            {
-                path: "", component: HeartstoneComponent
-        }
+            { path: "", redirectTo: "main", pathMatch: "full" },
+            { path: "main", component: HeartstoneComponent },
+            { path: "filters", component: FiltersComponent },
+            { path: "list", component: CardsListComponent }
+                
         ])
     ],
     declarations: [
-        HeartstoneComponent
+        HeartstoneComponent,
+        FiltersComponent,
+        CardsListComponent
     ],
     providers: [],
     schemas: [NO_ERRORS_SCHEMA]

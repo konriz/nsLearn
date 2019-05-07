@@ -1,39 +1,8 @@
 <ActionBar title="Heartstone" class="action-bar">
-  <NavigationButton text="Home" android.systemIcon="ic_menu_home" (tap)="goBack()"></NavigationButton>
+    <NavigationButton text="Home" android.systemIcon="ic_menu_home" (tap)="goBack()"></NavigationButton>
 </ActionBar>
+<StackLayout>
+    <Button text="Filters" (tap)="goToFilters()"></Button>
+</StackLayout>
 
-<TabView #tabView>
-  <StackLayout *tabItem="{title: 'Races'}">
-      <ListView [items]="info.races" (itemTap)="raceDetails($event)" class="list-group" height="100%">
-          <ng-template let-item="item">
-            <StackLayout>
-              <Label [text]="item" class="list-group-item"></Label>
-              
-            </StackLayout>
-          </ng-template>
-      </ListView>
-  </StackLayout>
-
-  <StackLayout *tabItem="{title: 'Classes'}">
-      <ListView [items]="info.classes" (itemTap)="classDetails($event)" class="list-group" height="100%">
-          <ng-template let-item="item">
-            <StackLayout>
-              <Label [text]="item" class="list-group-item"></Label>
-              
-            </StackLayout>
-          </ng-template>
-      </ListView>
-  </StackLayout>
-
-  <StackLayout *tabItem="{title: 'Factions'}">
-      <ListView [items]="info.factions" (itemTap)="factionDetails($event)" class="list-group" height="100%">
-          <ng-template let-item="item">
-            <StackLayout>
-              <Label [text]="item" class="list-group-item"></Label>
-              
-            </StackLayout>
-          </ng-template>
-      </ListView>
-  </StackLayout>
-
-</TabView>
+<page-router-outlet></page-router-outlet>

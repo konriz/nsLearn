@@ -1,3 +1,10 @@
-<ActionBar title="Heartstone" class="action-bar">
+<ActionBar title="Cards" class="action-bar">
     <NavigationButton text="Home" android.systemIcon="ic_menu_home" (tap)="goBack()"></NavigationButton>
 </ActionBar>
+<ListView [items]="cards" class="list-group" height="100%">
+    <ng-template let-item="card">
+        <StackLayout>
+            <Label [text]="card.name" class="list-group-item"></Label>
+        </StackLayout>
+    </ng-template>
+</ListView>
