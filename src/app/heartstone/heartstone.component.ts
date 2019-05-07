@@ -32,8 +32,7 @@ export class HeartstoneComponent implements OnInit{
     raceDetails(args) { 
         this.service.getByFilter(HeartstoneFilter.Race, this.info.races[args.index]).subscribe(
             res => {
-                let cardsList = this.createCardsList(res);
-                this.showList(cardsList);
+                this.showList(res);
             }
         );
     }
@@ -41,8 +40,7 @@ export class HeartstoneComponent implements OnInit{
     classDetails(args) { 
         this.service.getByFilter(HeartstoneFilter.Class, this.info.classes[args.index]).subscribe(
             res => {
-                let cardsList = this.createCardsList(res);
-                this.showList(cardsList);
+                this.showList(res);
             }
         );
     }
@@ -50,21 +48,12 @@ export class HeartstoneComponent implements OnInit{
     factionDetails(args) { 
         this.service.getByFilter(HeartstoneFilter.Faction, this.info.factions[args.index]).subscribe(
             res => {
-                let cardsList = this.createCardsList(res);
-                this.showList(cardsList);
+                this.showList(res);
             }
         );
     }
 
-    createCardsList(cardsJson: JSON){
-        let cardsList = [];
-        let cardsCount = Object.keys(cardsJson).length;
 
-        for (let index = 0; index < cardsCount; index++) {
-            cardsList.push(new Card(cardsJson[index]));
-        }
-        return cardsList;
-    }
 
     showList(cardsList: Card[]){
         let output = "";

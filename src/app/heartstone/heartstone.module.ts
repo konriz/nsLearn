@@ -2,9 +2,6 @@ import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { HeartstoneComponent } from "./heartstone.component";
-import { HeartstoneRacesComponent } from "./races/heartstone-races.component";
-import { HeartstoneClassesComponent } from "./classes/heartstone-classes.component";
-import { HeartstoneFactionsComponent } from "./factions/heartstone-factions.component";
 
 @NgModule({
     imports: [
@@ -12,31 +9,12 @@ import { HeartstoneFactionsComponent } from "./factions/heartstone-factions.comp
         NativeScriptRouterModule,
         NativeScriptRouterModule.forChild([
             {
-                path: "", component: HeartstoneComponent, children: [
-                    {
-                        path: "races",
-                        outlet: "racesTab",
-                        component: HeartstoneRacesComponent
-                    },
-                    {
-                        path: "classes",
-                        outlet: "classesTab",
-                        component: HeartstoneClassesComponent
-                    },
-                    {
-                        path: "factions",
-                        outlet: "factionsTab",
-                        component: HeartstoneFactionsComponent
-                    }
-                ]
+                path: "", component: HeartstoneComponent
         }
         ])
     ],
     declarations: [
-        HeartstoneComponent,
-        HeartstoneRacesComponent,
-        HeartstoneClassesComponent,
-        HeartstoneFactionsComponent
+        HeartstoneComponent
     ],
     providers: [],
     schemas: [NO_ERRORS_SCHEMA]
