@@ -10,7 +10,7 @@ import { HeartstoneFilter } from "./filters.enum";
         selector: "ns-heartstone-filters",
         moduleId: module.id,
         templateUrl: "./filters.component.html",
-        providers: [HeartstoneService]
+        providers: []
     }
 )
 export class FiltersComponent implements OnInit{
@@ -58,8 +58,6 @@ export class FiltersComponent implements OnInit{
     }
 
     showList(cardsList: Card[]){
-
         this.routerExtension.navigate(["/heartstone/list"]);
-        
     }
 }

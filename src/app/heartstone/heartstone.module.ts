@@ -4,6 +4,7 @@ import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { FiltersComponent } from "./search/filters.component";
 import { CardsListComponent } from "./card/cardsList.component";
 import { HeartstoneComponent } from "./heartstone.component";
+import { HeartstoneService } from "./heartstone.service";
 
 @NgModule({
     imports: [
@@ -22,7 +23,7 @@ import { HeartstoneComponent } from "./heartstone.component";
         FiltersComponent,
         CardsListComponent
     ],
-    providers: [],
+    providers: [HeartstoneService],
     schemas: [NO_ERRORS_SCHEMA]
 })
 export class HeartstoneModule {}

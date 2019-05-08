@@ -8,12 +8,12 @@ import { RouterExtensions } from "nativescript-angular/router";
         selector: "ns-heartstone-cards-list",
         moduleId: module.id,
         templateUrl: "./cardsList.component.html",
-        providers: [HeartstoneService]
+        providers: []
     }
 )
 export class CardsListComponent implements OnInit {
 
-    cards: Card[];
+    cards: Card[] = [];
 
     constructor(private service: HeartstoneService, private routerExtension: RouterExtensions) { }
 

@@ -2,9 +2,9 @@
     <NavigationButton text="Home" android.systemIcon="ic_menu_home" (tap)="goBack()"></NavigationButton>
 </ActionBar>
 <ListView [items]="cards" class="list-group" height="100%">
-    <ng-template let-item="card">
+    <ng-template let-item="item">
         <StackLayout>
-            <Label [text]="card.name" class="list-group-item"></Label>
+            <Label [text]="item.name" class="list-group-item"></Label>
         </StackLayout>
     </ng-template>
 </ListView>
