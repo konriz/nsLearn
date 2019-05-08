@@ -5,6 +5,7 @@ import { FiltersComponent } from "./search/filters.component";
 import { CardsListComponent } from "./card/cardsList.component";
 import { HeartstoneComponent } from "./heartstone.component";
 import { HeartstoneService } from "./heartstone.service";
+import { CardComponent } from "./card/card.component";
 
 @NgModule({
     imports: [
@@ -14,14 +15,15 @@ import { HeartstoneService } from "./heartstone.service";
             { path: "", redirectTo: "main", pathMatch: "full" },
             { path: "main", component: HeartstoneComponent },
             { path: "filters", component: FiltersComponent },
-            { path: "list", component: CardsListComponent }
-                
+            { path: "list", component: CardsListComponent },
+            { path: "card", component: CardComponent }
         ])
     ],
     declarations: [
         HeartstoneComponent,
         FiltersComponent,
-        CardsListComponent
+        CardsListComponent,
+        CardComponent
     ],
     providers: [HeartstoneService],
     schemas: [NO_ERRORS_SCHEMA]

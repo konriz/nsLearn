@@ -41,4 +41,12 @@ export class Card {
         this.locale = card["locale"];
     }
 
+    toString(){
+        let output = 
+`Card name:
+${this.name}
+Card text:
+${this.text}`;
+        return output;
+    }
 }

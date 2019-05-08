@@ -21,6 +21,11 @@ export class CardsListComponent implements OnInit {
         this.cards = this.service.fetchedList;
     }
 
+    cardDetails(args){
+        this.service.selectedCard = this.cards[args.index];
+        this.routerExtension.navigate(["/heartstone/card"]);
+    }
+
     goBack() {
         this.routerExtension.back();
     }

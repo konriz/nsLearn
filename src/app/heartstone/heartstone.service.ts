@@ -10,6 +10,7 @@ import { Card } from "./heartstone.model";
 export class HeartstoneService {
 
     fetchedList: Card[];
+    selectedCard: Card;
 
     constructor(private http: Http) { }
 
