@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { HeartstoneService } from "../heartstone.service";
-import { Card } from "../heartstone.model";
 import { RouterExtensions } from "nativescript-angular/router";
 
 @Component(
@@ -11,18 +10,13 @@ import { RouterExtensions } from "nativescript-angular/router";
         providers: []
     }
 )
-export class CardsListComponent implements OnInit {
-
-    cards: Card[] = [];
+export class CardsListComponent {
 
     constructor(private service: HeartstoneService, private routerExtension: RouterExtensions) { }
 
-    ngOnInit() {
-        this.cards = this.service.fetchedList;
-    }
 
     cardDetails(args){
-        this.service.selectedCard = this.cards[args.index];
+        this.service.selectCard(args.index);
         this.routerExtension.navigate(["/heartstone/card"]);
     }
 

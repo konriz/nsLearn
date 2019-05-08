@@ -1,7 +1,40 @@
 <ActionBar title="Card" class="action-bar">
     <NavigationButton text="Home" android.systemIcon="ic_menu_home" (tap)="goBack()"></NavigationButton>
 </ActionBar>
-<StackLayout>
-    <Label [text]="card.name"></Label>
-    <Label [text]="card.text"></Label>
-</StackLayout>
+<GridLayout rows="*, *, 4*, 4*">
+    <GridLayout rows="auto, auto" row="0" columns="3*, *" class="section m-5">
+        <Label [text]="service.card.name" row="0" col="0"></Label>
+        <Label [text]="service.card.type" row="0" col="1"></Label>
+        <Label [text]="service.card.cardSet" row="1" col="0"></Label>
+        <Label [text]="service.card.rarity" row="1" col="1"></Label>
+    </GridLayout>
+
+    <GridLayout rows="auto" row="1" columns="*, *, *" class="section m-5">
+        <StackLayout class="item-cell"  row="0" col="0">
+            <Label text="Health:"></Label>
+            <Label [text]="service.card.health" textWrap="true"></Label>
+        </StackLayout>
+        <StackLayout class="item-cell" row="0" col="1">
+            <Label text="Cost:"></Label>
+            <Label [text]="service.card.cost" textWrap="true" ></Label>
+        </StackLayout>
+        <StackLayout class="item-cell"  row="0" col="2">
+            <Label text="Attack:"></Label>
+            <Label [text]="service.card.attack" textWrap="true"></Label>
+        </StackLayout>
+    </GridLayout>
+
+    <StackLayout class="section m-5" row="2">
+            <Image [src]="service.card.img"></Image>
+    </StackLayout>
+
+    <StackLayout class="section m-5" row="3" class="m-5">
+
+        <Label [text]="service.card.text" textWrap="true"></Label>
+        <Label [text]="service.card.flavor" textWrap="true"></Label>
+        <Label [text]="service.card.artist" textWrap="true"></Label>
+        <Label [text]="service.card.playerClass" textWrap="true"></Label>
+        
+    </StackLayout>
+    
+</GridLayout>

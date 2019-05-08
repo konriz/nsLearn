@@ -7,18 +7,13 @@ import { RouterExtensions } from "nativescript-angular/router";
     {
         selector: "ns-heartstone-card",
         moduleId: module.id,
-        templateUrl: "./card.component.html"
+        templateUrl: "./card.component.html",
+        styleUrls: ["./card.component.css"]
     }
 )
-export class CardComponent implements OnInit{
-
-    card: Card;
+export class CardComponent{
 
     constructor(private service: HeartstoneService, private routerExtension: RouterExtensions) { }
-
-    ngOnInit() {
-        this.card = this.service.selectedCard;
-    }
 
     goBack() {
         this.routerExtension.back();

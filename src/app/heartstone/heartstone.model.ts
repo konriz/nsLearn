@@ -18,8 +18,12 @@ export class Card {
     name: string;
     cardSet: string;
     type: string;
+    rarity: string;
     health: string;
+    cost: string;
+    attack: string;
     text: string;
+    flavor: string;
     artist: string;
     playerClass: string;
     img: string;
@@ -32,21 +36,20 @@ export class Card {
         this.name = card["name"];
         this.cardSet = card["cardSet"];
         this.type = card["type"];
+        this.rarity = card["rarity"];
+        this.cost = card["cost"];
+        this.attack = card["attack"];
         this.health = card["health"];
         this.text = card["text"];
+        this.flavor = card["flavor"];
         this.artist = card["artist"];
         this.playerClass = card["playerClass"];
-        this.img = card["img"];
-        this.imgGold = card["imgGold"];
+        this.img = this.stripHttp(card["img"]);
+        this.imgGold = this.stripHttp(card["imgGold"]);
         this.locale = card["locale"];
     }
 
-    toString(){
-        let output = 
-`Card name:
-${this.name}
-Card text:
-${this.text}`;
-        return output;
+    private stripHttp(url: string){
+        return url.replace("http://", "https://");
     }
 }

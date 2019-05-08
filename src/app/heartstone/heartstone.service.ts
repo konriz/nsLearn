@@ -9,8 +9,8 @@ import { Card } from "./heartstone.model";
 @Injectable()
 export class HeartstoneService {
 
-    fetchedList: Card[];
-    selectedCard: Card;
+    cards: Card[];
+    card: Card;
 
     constructor(private http: Http) { }
 
@@ -33,6 +33,10 @@ export class HeartstoneService {
         )
     }
 
+    selectCard(index: number){
+        this.card = this.cards[index];
+    }
+
     private createCardsList(cardsJson: JSON){
         let cardsList: Card[] = [];
         let cardsCount = Object.keys(cardsJson).length;
@@ -40,7 +44,7 @@ export class HeartstoneService {
         for (let index = 0; index < cardsCount; index++) {
             cardsList.push(new Card(cardsJson[index]));
         }
-        this.fetchedList = cardsList;
+        this.cards = cardsList;
         return cardsList;
     }
 
