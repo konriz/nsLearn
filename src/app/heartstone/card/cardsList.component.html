@@ -1,7 +1,7 @@
 <ActionBar title="Cards" class="action-bar">
     <NavigationButton text="Home" android.systemIcon="ic_menu_home" (tap)="goBack()"></NavigationButton>
 </ActionBar>
-<ListView [items]="service.cards" (itemTap)="cardDetails($event)" class="list-group" height="100%">
+<ListView [items]="model.cards" (itemTap)="cardDetails($event)" class="list-group" height="100%">
     <ng-template let-item="item">
         <StackLayout>
             <Label [text]="item.name" class="list-group-item"></Label>

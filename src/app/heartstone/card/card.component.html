@@ -1,40 +1,40 @@
 <ActionBar title="Card" class="action-bar">
     <NavigationButton text="Home" android.systemIcon="ic_menu_home" (tap)="goBack()"></NavigationButton>
 </ActionBar>
-<GridLayout rows="*, *, 4*, 4*">
-    <GridLayout rows="auto, auto" row="0" columns="3*, *" class="section m-5">
-        <Label [text]="service.card.name" row="0" col="0"></Label>
-        <Label [text]="service.card.type" row="0" col="1"></Label>
-        <Label [text]="service.card.cardSet" row="1" col="0"></Label>
-        <Label [text]="service.card.rarity" row="1" col="1"></Label>
+<GridLayout rows="auto, auto, 4*, 3*">
+    <GridLayout rows="auto, auto" row="0" columns="3*, *" class="section m-5 p-5">
+        <Label [text]="model.card.name" row="0" col="0" class="font-weight-bold"></Label>
+        <Label [text]="model.card.type" row="0" col="1" class="text-right"></Label>
+        <Label [text]="model.card.cardSet" row="1" col="0"></Label>
+        <Label [text]="model.card.rarity" row="1" col="1" class="text-right"></Label>
     </GridLayout>
 
-    <GridLayout rows="auto" row="1" columns="*, *, *" class="section m-5">
+    <GridLayout rows="auto" row="1" columns="*, *, *" class="section m-5 p-5 text-center">
         <StackLayout class="item-cell"  row="0" col="0">
             <Label text="Health:"></Label>
-            <Label [text]="service.card.health" textWrap="true"></Label>
+            <Label [text]="model.card.health" textWrap="true"></Label>
         </StackLayout>
         <StackLayout class="item-cell" row="0" col="1">
             <Label text="Cost:"></Label>
-            <Label [text]="service.card.cost" textWrap="true" ></Label>
+            <Label [text]="model.card.cost" textWrap="true" ></Label>
         </StackLayout>
         <StackLayout class="item-cell"  row="0" col="2">
             <Label text="Attack:"></Label>
-            <Label [text]="service.card.attack" textWrap="true"></Label>
+            <Label [text]="model.card.attack" textWrap="true"></Label>
         </StackLayout>
     </GridLayout>
 
-    <StackLayout class="section m-5" row="2">
-            <Image [src]="service.card.img" loadMode="async"></Image>
-    </StackLayout>
+    <GridLayout *ngIf="model.card.hasImg()" class="section m-5 p-5" row="2" rows="*, auto">
+            <Image [src]="model.card.img" loadMode="async" row="0" (tap)="zoom()"></Image>
+            <Label [text]="model.card.artist" textWrap="true" row="1" class="text-center"></Label>
+    </GridLayout>
 
-    <StackLayout class="section m-5" row="3" class="m-5">
+    <GridLayout class="section m-5" row="3" class="m-5 p-5"  rows="*, *, *">
 
-        <Label [text]="service.card.text" textWrap="true"></Label>
-        <Label [text]="service.card.flavor" textWrap="true"></Label>
-        <Label [text]="service.card.artist" textWrap="true"></Label>
-        <Label [text]="service.card.playerClass" textWrap="true"></Label>
+        <HtmlView *ngIf="model.card.text" [html]="model.card.text" textWrap="true" verticalAlignment="top" row="0" class="text-center"></HtmlView>
+        <Label [text]="model.card.flavor" textWrap="true" verticalAlignment="center" row="1" class="text-center"></Label>
+        <Label [text]="model.card.playerClass" textWrap="true" verticalAlignment="bottom" row="2" class="text-center"></Label>
         
-    </StackLayout>
+    </GridLayout>
     
 </GridLayout>

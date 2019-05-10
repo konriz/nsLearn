@@ -10,13 +10,9 @@ import { HeartstoneModel } from "../heartstone.model";
         styleUrls: ["./card.component.css"]
     }
 )
-export class CardComponent{
+export class ZoomComponent{
 
     constructor(private model: HeartstoneModel, private routerExtension: RouterExtensions) { }
-
-    zoom() {
-        this.routerExtension.navigate(["/heartstone/zoom"]);
-    }
 
     goBack() {
         this.routerExtension.back();

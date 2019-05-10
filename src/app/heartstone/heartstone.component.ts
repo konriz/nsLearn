@@ -1,6 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
 import { ActivatedRoute } from "@angular/router";
+import { HeartstoneModel } from "./heartstone.model";
 
 @Component(
     {
@@ -9,16 +10,16 @@ import { ActivatedRoute } from "@angular/router";
         templateUrl: "./heartstone.component.html"
     }
 )
-export class HeartstoneComponent {
+export class HeartstoneComponent implements OnInit {
 
-    constructor(private routerExtension: RouterExtensions, private activeRoute: ActivatedRoute) { }
+    constructor(private routerExtension: RouterExtensions, private activeRoute: ActivatedRoute, private model: HeartstoneModel) { }
+
+    ngOnInit() {
+        this.model.downloadCards();
+    }
 
     goToBrowse(){
         this.routerExtension.navigate(["/heartstone/browse"]);
-    }
-
-    goToFilters(){
-        this.routerExtension.navigate(["/heartstone/filters"]);
     }
 
     goBack(){

@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
 import { ActivatedRoute } from "@angular/router";
-import { HeartstoneService } from "../heartstone.service";
-import { Info, Card } from "../heartstone.model";
+import { HeartstoneModel } from "../heartstone.model";
+import { Info, Card } from "../heartstone.dto";
 import { HeartstoneFilter } from "./filters.enum";
 
 @Component(
@@ -17,12 +17,12 @@ export class FiltersComponent implements OnInit{
 
     info: Info;
 
-    constructor(private routerExtension: RouterExtensions, private activeRoute: ActivatedRoute, private service: HeartstoneService){
+    constructor(private routerExtension: RouterExtensions, private activeRoute: ActivatedRoute, private model: HeartstoneModel){
 
     }
 
     ngOnInit() {
-        this.service.getInfo().subscribe(
+        this.model.getInfo().subscribe(
             res => {
                 this.info = new Info(res.json());
             },
@@ -37,7 +37,7 @@ export class FiltersComponent implements OnInit{
     }
 
     raceDetails(args) { 
-        this.service.getByFilter(HeartstoneFilter.Race, this.info.races[args.index]).subscribe(
+        this.model.getByFilter(HeartstoneFilter.Race, this.info.races[args.index]).subscribe(
             res => {
                 this.showList(res);
             }
@@ -45,7 +45,7 @@ export class FiltersComponent implements OnInit{
     }
 
     classDetails(args) { 
-        this.service.getByFilter(HeartstoneFilter.Class, this.info.classes[args.index]).subscribe(
+        this.model.getByFilter(HeartstoneFilter.Class, this.info.classes[args.index]).subscribe(
             res => {
                 this.showList(res);
             }
@@ -53,7 +53,7 @@ export class FiltersComponent implements OnInit{
     }
 
     factionDetails(args) { 
-        this.service.getByFilter(HeartstoneFilter.Faction, this.info.factions[args.index]).subscribe(
+        this.model.getByFilter(HeartstoneFilter.Faction, this.info.factions[args.index]).subscribe(
             res => {
                 this.showList(res);
             }

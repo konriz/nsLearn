@@ -4,9 +4,11 @@ import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { FiltersComponent } from "./search/filters.component";
 import { CardsListComponent } from "./card/cardsList.component";
 import { HeartstoneComponent } from "./heartstone.component";
-import { HeartstoneService } from "./heartstone.service";
 import { CardComponent } from "./card/card.component";
 import { BrowseComponent } from "./browse/browse.component";
+import { HeartstoneModel } from "./heartstone.model";
+import { HeartstoneService } from "./heartstone.service";
+import { ZoomComponent } from "./card/zoom.component";
 
 @NgModule({
     imports: [
@@ -19,6 +21,7 @@ import { BrowseComponent } from "./browse/browse.component";
             { path: "filters", component: FiltersComponent },
             { path: "list", component: CardsListComponent },
             { path: "card", component: CardComponent },
+            { path: "zoom", component: ZoomComponent }
         ])
     ],
     declarations: [
@@ -26,9 +29,10 @@ import { BrowseComponent } from "./browse/browse.component";
         FiltersComponent,
         BrowseComponent,
         CardsListComponent,
-        CardComponent
+        CardComponent,
+        ZoomComponent
     ],
-    providers: [HeartstoneService],
+    providers: [HeartstoneModel, HeartstoneService],
     schemas: [NO_ERRORS_SCHEMA]
 })
 export class HeartstoneModule {}
