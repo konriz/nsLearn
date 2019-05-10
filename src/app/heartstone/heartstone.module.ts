@@ -6,6 +6,7 @@ import { CardsListComponent } from "./card/cardsList.component";
 import { HeartstoneComponent } from "./heartstone.component";
 import { HeartstoneService } from "./heartstone.service";
 import { CardComponent } from "./card/card.component";
+import { BrowseComponent } from "./browse/browse.component";
 
 @NgModule({
     imports: [
@@ -14,14 +15,16 @@ import { CardComponent } from "./card/card.component";
         NativeScriptRouterModule.forChild([
             { path: "", redirectTo: "main", pathMatch: "full" },
             { path: "main", component: HeartstoneComponent },
+            { path: "browse", component: BrowseComponent },
             { path: "filters", component: FiltersComponent },
             { path: "list", component: CardsListComponent },
-            { path: "card", component: CardComponent }
+            { path: "card", component: CardComponent },
         ])
     ],
     declarations: [
         HeartstoneComponent,
         FiltersComponent,
+        BrowseComponent,
         CardsListComponent,
         CardComponent
     ],

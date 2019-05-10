@@ -13,6 +13,10 @@ export class HeartstoneComponent {
 
     constructor(private routerExtension: RouterExtensions, private activeRoute: ActivatedRoute) { }
 
+    goToBrowse(){
+        this.routerExtension.navigate(["/heartstone/browse"]);
+    }
+
     goToFilters(){
         this.routerExtension.navigate(["/heartstone/filters"]);
     }

@@ -25,6 +25,9 @@ export class FiltersComponent implements OnInit{
         this.service.getInfo().subscribe(
             res => {
                 this.info = new Info(res.json());
+            },
+            err => {
+                console.log(err);
             }
         );
     }
