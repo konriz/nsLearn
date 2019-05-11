@@ -4,10 +4,9 @@ import { HeartstoneModel } from "../heartstone.model";
 
 @Component(
     {
-        selector: "ns-heartstone-card",
+        selector: "ns-heartstone-zoom",
         moduleId: module.id,
-        templateUrl: "./card.component.html",
-        styleUrls: ["./card.component.css"]
+        templateUrl: "./zoom.component.html"
     }
 )
 export class ZoomComponent{
