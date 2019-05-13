@@ -2,26 +2,40 @@ import { Injectable } from "@angular/core";
 import { HeartstoneService } from "./heartstone.service";
 import { Card } from "./heartstone.dto";
 import { HeartstoneFilter } from "./search/filters.enum";
+import { HeartstoneDao } from "./heartstone.dao";
+import { HeartstoneConfig } from "./heartstone.config";
 
 @Injectable()
 export class HeartstoneModel {
     
     cards: Card[];
+    selectedCards: Card[];
     card: Card;
 
-    constructor(private service: HeartstoneService) {
+    constructor(private service: HeartstoneService, private dao: HeartstoneDao) {
+    }
 
+    init(){
+        this.dao.clearDatabase();
+        this.downloadCards();
     }
 
     selectCard(index: number){
         this.card = this.cards[index];
     }
 
-    downloadCards() {
+    private downloadCards() {
         console.log("Downloading cards")
         this.service.getCards().subscribe(
             res => {
-                this.cards = this.createCardsList(res);
+                let downloadedCards = this.createCardsList(res);
+
+                if(HeartstoneConfig.useDatabase){
+                    this.dao.insertCards(downloadedCards);
+                    this.cards = this.dao.getAllCards();
+                } else {
+                    this.cards = downloadedCards;
+                }
             },
             err => {
                 console.log(err);
@@ -38,19 +52,15 @@ export class HeartstoneModel {
     private createCardsList(cardsSetJson: JSON){
         let cardsList: Card[] = [];
         let setsCount = Object.keys(cardsSetJson).length;
-        console.log(`Downloaded ${setsCount} sets.`)
 
         Object.keys(cardsSetJson).forEach(set => {
             let cardsInSet = cardsSetJson[set];
             let cardsCount = Object.keys(cardsInSet).length;
-            console.log(`Downloaded ${cardsCount} from set ${set}.`)
             for (let card = 0; card < cardsCount; card++) {
                 cardsList.push(new Card(cardsInSet[card]));
             }
         });
-
-        this.cards = cardsList;
+        console.log(`Downloaded ${setsCount} sets with ${cardsList.length} cards total.`)
         return cardsList;
     }
-
 }

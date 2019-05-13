@@ -9,6 +9,8 @@ import { BrowseComponent } from "./browse/browse.component";
 import { HeartstoneModel } from "./heartstone.model";
 import { HeartstoneService } from "./heartstone.service";
 import { ZoomComponent } from "./card/zoom.component";
+import { HeartstoneDatabaseService } from "./database.service";
+import { HeartstoneDao } from "./heartstone.dao";
 
 @NgModule({
     imports: [
@@ -32,7 +34,7 @@ import { ZoomComponent } from "./card/zoom.component";
         CardComponent,
         ZoomComponent
     ],
-    providers: [HeartstoneModel, HeartstoneService],
+    providers: [HeartstoneModel, HeartstoneService, HeartstoneDatabaseService, HeartstoneDao],
     schemas: [NO_ERRORS_SCHEMA]
 })
 export class HeartstoneModule {}

@@ -4,4 +4,6 @@ export class HeartstoneConfig {
     static host = "omgvamp-hearthstone-v1.p.rapidapi.com";
     static info = HeartstoneConfig.apiUrl + "info";
     static cards = HeartstoneConfig.apiUrl + "cards";
+
+    static useDatabase = true;
 }

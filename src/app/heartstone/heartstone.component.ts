@@ -15,7 +15,7 @@ export class HeartstoneComponent implements OnInit {
     constructor(private routerExtension: RouterExtensions, private activeRoute: ActivatedRoute, private model: HeartstoneModel) { }
 
     ngOnInit() {
-        this.model.downloadCards();
+        this.model.init();
     }
 
     goToBrowse(){
