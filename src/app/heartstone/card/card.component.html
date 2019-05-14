@@ -31,8 +31,8 @@
 
     <GridLayout class="section m-5" row="3" class="m-5 p-5"  rows="*, *, *">
 
-        <HtmlView *ngIf="model.card.text" [html]="model.card.text" textWrap="true" verticalAlignment="top" row="0" class="text-center"></HtmlView>
-        <Label [text]="model.card.flavor" textWrap="true" verticalAlignment="center" row="1" class="text-center"></Label>
+        <HtmlView *ngIf="model.card.text" [html]="model.card.text" textWrap="true" verticalAlignment="top" row="0"></HtmlView>
+        <HtmlView *ngIf="model.card.flavor" [html]="model.card.flavor" textWrap="true" verticalAlignment="center" row="1"></HtmlView>
         <Label [text]="model.card.playerClass" textWrap="true" verticalAlignment="bottom" row="2" class="text-center"></Label>
         
     </GridLayout>

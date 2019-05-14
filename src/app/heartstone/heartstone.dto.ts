@@ -40,8 +40,8 @@ export class Card {
         this.cost = card["cost"];
         this.attack = card["attack"];
         this.health = card["health"];
-        this.text = card["text"];
-        this.flavor = card["flavor"];
+        this.text = this.toHtml(card["text"]);
+        this.flavor = this.toHtml(card["flavor"]);
         this.artist = card["artist"];
         this.playerClass = card["playerClass"];
         this.img = this.stripHttp(card["img"]);
@@ -58,5 +58,14 @@ export class Card {
             return url.replace("http://", "https://");
         }
         return "";
+    }
+
+    private toHtml(text: string){
+        if(text){
+            text = text.replace("\\n", "<br>");
+            text = text.replace("$", "");
+            text = text.replace("_", " ");
+        }
+        return text;
     }
 }

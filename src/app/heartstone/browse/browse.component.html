@@ -10,14 +10,10 @@
                 <Label *ngIf="item.hasImg()" text="IMG" horizontalAlignment="right" col="1"></Label>
             </GridLayout>
         </ng-template>
-        <ng-template tkListViewFooter>
-            <Label [text]="'1/' + model.cards.length" class="footer"></Label>
-        </ng-template>
     </RadListView>
         
     <StackLayout *ngIf="!model.cards" class="m-5">
         <Label text="Loading cards..." horizontalAlignment="center" textWrap="true"></Label>
         <ActivityIndicator #activityIndicator class="activity-indicator" busy="true"></ActivityIndicator>    
     </StackLayout>
-        
 </GridLayout>
