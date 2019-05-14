@@ -2,16 +2,22 @@
     <NavigationButton text="Home" android.systemIcon="ic_menu_home" (tap)="goBack()"></NavigationButton>
 </ActionBar>
 
-<StackLayout>
-    
-    <ListView [items]="model.cards" (itemTap)="cardDetails($event)" class="list-group" height="100%">
-        <ng-template let-item="item">
-            <GridLayout columns="auto , *"  class="list-group-item">
+<GridLayout tkExampleTitle tkToggleNavButton>
+    <RadListView *ngIf="model.cards" [items]="model.cards" selectionBehavior="Press" (itemSelected)="cardDetails($event)">
+        <ng-template tkListItemTemplate let-item="item">
+            <GridLayout columns="auto, *" class="row m-5 p-5">
                 <Label [text]="item.name" col="0"></Label>
                 <Label *ngIf="item.hasImg()" text="IMG" horizontalAlignment="right" col="1"></Label>
             </GridLayout>
         </ng-template>
-    </ListView>
-</StackLayout>
-<Label [text]="'1/' + model.cards.length" class="text-center"></Label>
-
+        <ng-template tkListViewFooter>
+            <Label [text]="'1/' + model.cards.length" class="footer"></Label>
+        </ng-template>
+    </RadListView>
+        
+    <StackLayout *ngIf="!model.cards" class="m-5">
+        <Label text="Loading cards..." horizontalAlignment="center" textWrap="true"></Label>
+        <ActivityIndicator #activityIndicator class="activity-indicator" busy="true"></ActivityIndicator>    
+    </StackLayout>
+        
+</GridLayout>

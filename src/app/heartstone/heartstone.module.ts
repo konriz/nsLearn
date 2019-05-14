@@ -11,10 +11,12 @@ import { HeartstoneService } from "./heartstone.service";
 import { ZoomComponent } from "./card/zoom.component";
 import { HeartstoneDatabaseService } from "./database.service";
 import { HeartstoneDao } from "./heartstone.dao";
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 
 @NgModule({
     imports: [
         NativeScriptCommonModule,
+        NativeScriptUIListViewModule,
         NativeScriptRouterModule,
         NativeScriptRouterModule.forChild([
             { path: "", redirectTo: "main", pathMatch: "full" },
