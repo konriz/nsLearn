@@ -50,7 +50,11 @@ export class Card {
     }
 
     hasImg(){
-        return (this.img && this.img != "");
+        if(this.img) {
+            return (this.img != "")
+        } else {
+            return false;
+        }
     }
 
     private stripHttp(url: string){

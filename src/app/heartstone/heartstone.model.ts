@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HeartstoneService } from "./heartstone.service";
 import { Card } from "./heartstone.dto";
-import { HeartstoneFilter } from "./search/filters.enum";
 import { HeartstoneDao } from "./heartstone.dao";
 import { HeartstoneConfig } from "./heartstone.config";
 
@@ -41,12 +40,6 @@ export class HeartstoneModel {
                 console.log(err);
             }
         );
-    }
-
-    getByFilter(filter: HeartstoneFilter, value: string) {
-        if(this.cards) {
-            return this.cards.slice(0, 9);
-        }
     }
 
     private createCardsList(cardsSetJson: JSON){

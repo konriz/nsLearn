@@ -1,7 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
-import { FiltersComponent } from "./search/filters.component";
 import { CardsListComponent } from "./card/cardsList.component";
 import { HeartstoneComponent } from "./heartstone.component";
 import { CardComponent } from "./card/card.component";
@@ -22,7 +21,6 @@ import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
             { path: "", redirectTo: "main", pathMatch: "full" },
             { path: "main", component: HeartstoneComponent },
             { path: "browse", component: BrowseComponent },
-            { path: "filters", component: FiltersComponent },
             { path: "list", component: CardsListComponent },
             { path: "card", component: CardComponent },
             { path: "zoom", component: ZoomComponent }
@@ -30,7 +28,6 @@ import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
     ],
     declarations: [
         HeartstoneComponent,
-        FiltersComponent,
         BrowseComponent,
         CardsListComponent,
         CardComponent,
