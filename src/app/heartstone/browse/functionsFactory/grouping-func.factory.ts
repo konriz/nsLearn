@@ -4,8 +4,8 @@ export class GroupingFunctionFactory {
 
     static getGroupingFunction(){
         let func = (card: Card)  => {
-            if(card.playerClass){
-                return card.playerClass;
+            if(card["playerClass"]){
+                return card["playerClass"];
             }
             return "";
         }

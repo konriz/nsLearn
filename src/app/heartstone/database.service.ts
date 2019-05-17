@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Card } from "./heartstone.dto";
+import { HeartstoneConfig } from "./heartstone.config";
 
 var Sqlite = require("nativescript-sqlite");
 
@@ -9,7 +10,11 @@ export class HeartstoneDatabaseService {
     private database: any;
 
     constructor() {
-        this.init();
+        if (HeartstoneConfig.useDatabase){
+            this.init();
+        } else {
+            console.log("Database creation skipped - no database mode.")
+        }
     }
 
     init() {

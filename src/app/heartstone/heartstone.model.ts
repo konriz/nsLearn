@@ -15,7 +15,6 @@ export class HeartstoneModel {
     }
 
     init(){
-        this.dao.clearDatabase();
         this.downloadCards();
     }
 
@@ -30,6 +29,7 @@ export class HeartstoneModel {
                 let downloadedCards = this.createCardsList(res);
 
                 if(HeartstoneConfig.useDatabase){
+                    this.dao.clearDatabase();
                     this.dao.insertCards(downloadedCards);
                     this.cards = this.dao.getAllCards();
                 } else {

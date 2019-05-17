@@ -6,7 +6,6 @@ import { Card } from "./heartstone.dto";
 export class HeartstoneDao {
 
     constructor(private database: HeartstoneDatabaseService){
-
     }
 
     insertCard(card: Card){

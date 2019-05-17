@@ -2,7 +2,6 @@ import { Component, ViewChild } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
 import { HeartstoneModel } from "../heartstone.model";
 import { ListViewEventData } from "nativescript-ui-listview";
-import { Card } from "../heartstone.dto";
 import { RadListViewComponent } from "nativescript-ui-listview/angular/listview-directives";
 import { SortingFunctionFactory } from "./functionsFactory/sorting-func-factory";
 import { FilteringFunctionFactory } from "./functionsFactory/filtering-func-factory";
