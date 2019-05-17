@@ -5,9 +5,9 @@
 <GridLayout rows="*,9*">
 
     <GridLayout columns="*,*,*" row="0">
-        <Button [text]="groupingEnabled ? 'Grouping ON' : 'Grouping OFF'" (tap)="toggleGrouping()" col="0"></Button>
-        <Button [text]="sortingEnabled ? 'Sorting ON' : 'Sorting OFF'" (tap)="toggleSorting()" col="1"></Button>
-        <Button [text]="filteringEnabled ? 'Filtering ON' : 'Filtering OFF'" (tap)="toggleFiltering()" col="2"></Button>
+        <Button [text]="groupingText + groupingMode" (tap)="toggleGrouping()" col="0"></Button>
+        <Button [text]="sortingText + sortingMode" (tap)="toggleSorting()" col="1"></Button>
+        <Button [text]="filteringText + filteringMode" (tap)="toggleFiltering()" col="2"></Button>
     </GridLayout>
 
     <GridLayout tkExampleTitle tkToggleNavButton row="1">

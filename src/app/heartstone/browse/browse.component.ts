@@ -4,6 +4,9 @@ import { HeartstoneModel } from "../heartstone.model";
 import { ListViewEventData } from "nativescript-ui-listview";
 import { Card } from "../heartstone.dto";
 import { RadListViewComponent } from "nativescript-ui-listview/angular/listview-directives";
+import { SortingFunctionFactory } from "./functionsFactory/sorting-func-factory";
+import { FilteringFunctionFactory } from "./functionsFactory/filtering-func-factory";
+import { GroupingFunctionFactory } from "./functionsFactory/grouping-func.factory";
 
 @Component(
     {
@@ -15,17 +18,17 @@ import { RadListViewComponent } from "nativescript-ui-listview/angular/listview-
 )
 export class BrowseComponent {
 
-    private groupingEnabled: boolean;
-    private sortingEnabled: boolean;
-    private filteringEnabled: boolean;
+    private groupingText = "Group by: ";
+    private groupingMode = "";
+    private sortingText = "Sort by: ";
+    private sortingMode = "";
+    private filteringText = "Filter by: ";
+    private filteringMode = "";
 
 
     @ViewChild("cardsList") cardsListComponent: RadListViewComponent;
 
     constructor(private model: HeartstoneModel, private routerExtension: RouterExtensions) {
-        this.groupingEnabled = false;
-        this.sortingEnabled = false;
-        this.filteringEnabled = false;
     }
 
     cardDetails(args: ListViewEventData){
@@ -36,50 +39,34 @@ export class BrowseComponent {
     toggleGrouping() {
         const listView = this.cardsListComponent.listView;
         if(!listView.groupingFunction) {
-            listView.groupingFunction = this.classGroupingFunction;
-            this.groupingEnabled = true;
+            listView.groupingFunction = GroupingFunctionFactory.getGroupingFunction();
+            this.groupingMode = "Character";
         } else {
             listView.groupingFunction = undefined;
-            this.groupingEnabled = false;
+            this.groupingMode = "";
         }
-    }
-
-    private classGroupingFunction(card: Card) {
-        if(card.playerClass){
-            return card.playerClass;
-        }
-        return "";
     }
 
     toggleSorting() {
         const listView = this.cardsListComponent.listView;
         if(!listView.sortingFunction) {
-            listView.sortingFunction = this.nameSortingFunction;
-            this.sortingEnabled = true;
+            listView.sortingFunction = SortingFunctionFactory.getSortingFunction();
+            this.sortingMode = "Name ASC";
         } else {
             listView.sortingFunction = undefined;
-            this.sortingEnabled = false;
+            this.sortingMode = "";
         }
-    }
-
-    private nameSortingFunction(card: Card, otherCard: Card): number {
-        let res = otherCard.name.localeCompare(card.name);
-        return res;
     }
 
     toggleFiltering() {
         const listView = this.cardsListComponent.listView;
         if(!listView.filteringFunction) {
-            listView.filteringFunction = this.imgFilteringFunction;
-            this.filteringEnabled = true;
+            listView.filteringFunction = FilteringFunctionFactory.getFilteringFunction();
+            this.filteringMode = "Has Image";
         } else {
             listView.filteringFunction = undefined;
-            this.filteringEnabled = false;
+            this.filteringMode = "";
         }
-    }
-
-    private imgFilteringFunction(card: Card): boolean {
-        return card.hasImg();
     }
 
     goBack(){
