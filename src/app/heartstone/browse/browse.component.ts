@@ -6,6 +6,9 @@ import { RadListViewComponent } from "nativescript-ui-listview/angular/listview-
 import { SortingFunctionFactory } from "./functionsFactory/sorting-func-factory";
 import { FilteringFunctionFactory } from "./functionsFactory/filtering-func-factory";
 import { GroupingFunctionFactory } from "./functionsFactory/grouping-func.factory";
+import { Group } from "./functionsFactory/groups.enum";
+import { Sort } from "./functionsFactory/sort.enum";
+import { Filter } from "./functionsFactory/filters.enum";
 
 @Component(
     {
@@ -38,9 +41,11 @@ export class BrowseComponent {
     toggleGrouping() {
         const listView = this.cardsListComponent.listView;
         if(!listView.groupingFunction) {
-            listView.groupingFunction = GroupingFunctionFactory.getGroupingFunction();
-            this.groupingMode = "Character";
+            console.log("Grouping...")
+            listView.groupingFunction = GroupingFunctionFactory.getGroupingFunction(Group.ByType);
+            this.groupingMode = Group.ByType;
         } else {
+            console.log("Ungrouping...")
             listView.groupingFunction = undefined;
             this.groupingMode = "";
         }
@@ -49,9 +54,11 @@ export class BrowseComponent {
     toggleSorting() {
         const listView = this.cardsListComponent.listView;
         if(!listView.sortingFunction) {
-            listView.sortingFunction = SortingFunctionFactory.getSortingFunction();
-            this.sortingMode = "Name ASC";
+            console.log("Sorting...");
+            listView.sortingFunction = SortingFunctionFactory.getSortingFunction(Sort.ByName);
+            this.sortingMode = Sort.ByName;
         } else {
+            console.log("Unsorting...");
             listView.sortingFunction = undefined;
             this.sortingMode = "";
         }
@@ -60,9 +67,11 @@ export class BrowseComponent {
     toggleFiltering() {
         const listView = this.cardsListComponent.listView;
         if(!listView.filteringFunction) {
-            listView.filteringFunction = FilteringFunctionFactory.getFilteringFunction();
-            this.filteringMode = "Has Image";
+            console.log("Filtering...");
+            listView.filteringFunction = FilteringFunctionFactory.getFilteringFunction(Filter.ByType, "Minion");
+            this.filteringMode = Filter.ByType + "= Minion";
         } else {
+            console.log("Unfiltering...");
             listView.filteringFunction = undefined;
             this.filteringMode = "";
         }

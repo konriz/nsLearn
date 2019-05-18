@@ -1,10 +1,11 @@
 import { Card } from "../../heartstone.dto";
+import { Sort } from "./sort.enum";
 
 export class SortingFunctionFactory {
 
-    static getSortingFunction(){
+    static getSortingFunction(sortBy: Sort){
         let func = (card: Card, otherCard: Card)  => {
-            return otherCard.name.localeCompare(card.name);
+            return otherCard[sortBy].localeCompare(card[sortBy]);
         }
         return func;
     }

@@ -11,7 +11,7 @@
     </GridLayout>
 
     <GridLayout tkExampleTitle tkToggleNavButton row="1">
-            <RadListView #cardsList *ngIf="model.cards" [items]="model.cards" selectionBehavior="Press" (itemSelected)="cardDetails($event)">
+            <RadListView #cardsList *ngIf="model.cards" [items]="model.cards" selectionBehavior="Press" (itemSelected)="cardDetails($event)" enableCollapsibleGroups="false">
                 <ng-template tkListItemTemplate let-item="item">
                     <GridLayout columns="auto, *" class="row m-5 p-5">
                         <Label [text]="item.name" col="0"></Label>
