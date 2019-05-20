@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, OnInit } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
 import { HeartstoneModel } from "../heartstone.model";
 import { ListViewEventData } from "nativescript-ui-listview";
@@ -15,7 +15,7 @@ import { GroupingFunctionFactory, Group } from "./functionsFactory/grouping-func
         styleUrls: ["./browse.component.css"]
     }
 )
-export class BrowseComponent {
+export class BrowseComponent implements OnInit {
 
     private groupingText = "Group by: ";
     private groupingMode = "";
@@ -29,6 +29,10 @@ export class BrowseComponent {
     constructor(private model: HeartstoneModel, private routerExtension: RouterExtensions) {
     }
 
+    ngOnInit(){
+        this.model.getCards();
+    }
+
     cardDetails(args: ListViewEventData){
         this.model.selectCard(args.index);
         this.routerExtension.navigate(["/heartstone/card"]);
@@ -39,7 +43,7 @@ export class BrowseComponent {
         if(!listView.groupingFunction) {
             console.log("Grouping...")
             listView.groupingFunction = GroupingFunctionFactory.getGroupingFunction(Group.ByType);
-            this.groupingMode = Group.ByType;
+            this.groupingMode = GroupingFunctionFactory.getGroupingString(Group.ByType);
         } else {
             console.log("Ungrouping...")
             listView.groupingFunction = undefined;
@@ -65,7 +69,7 @@ export class BrowseComponent {
         if(!listView.filteringFunction) {
             console.log("Filtering...");
             listView.filteringFunction = FilteringFunctionFactory.getFilteringFunction(Filter.ByType, "Minion");
-            this.filteringMode = Filter.ByType + " = Minion";
+            this.filteringMode = FilteringFunctionFactory.getFilteringString(Filter.ByType, "Minion");
         } else {
             console.log("Unfiltering...");
             listView.filteringFunction = undefined;

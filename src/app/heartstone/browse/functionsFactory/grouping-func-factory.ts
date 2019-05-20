@@ -11,6 +11,10 @@ export class GroupingFunctionFactory {
         }
         return func;
     }
+
+    static getGroupingString(groupBy: Group) {
+        return `${groupBy}`;
+    }
 }
 
 export enum Group {

@@ -10,36 +10,65 @@ export class HeartstoneModel {
     cards: Card[];
     selectedCards: Card[];
     card: Card;
+    private _initPromise: Promise<string>;
+    private _cardsPromise: Promise<Card[]>;
+    private _downloadPromise: Promise<Card[]>;
 
     constructor(private service: HeartstoneService, private dao: HeartstoneDao) {
     }
 
-    init(){
-        this.downloadCards();
+    init(): Promise<string> {
+        if(!this._initPromise){
+            this._initPromise = new Promise((resolve) => {
+                if(HeartstoneConfig.useDatabase) {
+                    this.dao.initDatabase()
+                    .then(log => {
+                        console.log(log);
+                        if(HeartstoneConfig.clearDatabase){
+                            this.dao.clearDatabase()
+                            .then(log => {
+                                console.log(log);
+                            });
+                        }
+                    })
+                    .then( () => resolve("Database initialised.")
+                    );
+                } else {
+                    resolve("Database is off.");
+                }
+            })
+        }
+        return this._initPromise;
+    }
+
+    getCards() {
+        this.init()
+        .then( () => {
+            this.downloadCards().then(cards => {
+                this.cards = cards;
+            });
+        })
     }
 
     selectCard(index: number){
         this.card = this.cards[index];
     }
 
-    private downloadCards() {
-        console.log("Downloading cards")
-        this.service.getCards().subscribe(
-            res => {
-                let downloadedCards = this.createCardsList(res);
+    private saveCards(cards: Card[]){
+        this.dao.insertCards(cards);
+    }
 
-                if(HeartstoneConfig.useDatabase){
-                    this.dao.clearDatabase();
-                    this.dao.insertCards(downloadedCards);
-                    this.cards = this.dao.getAllCards();
-                } else {
-                    this.cards = downloadedCards;
-                }
-            },
-            err => {
-                console.log(err);
-            }
-        );
+    private downloadCards(): Promise<Card[]> {
+        if(!this._downloadPromise){
+            console.log("Downloading cards");
+            this._downloadPromise = new Promise((resolve, reject) => {
+                this.service.getCards().subscribe(
+                    res => resolve(this.createCardsList(res)),
+                    err => reject(err)
+                );
+            });
+        }
+        return this._downloadPromise;
     }
 
     private createCardsList(cardsSetJson: JSON){

@@ -8,6 +8,10 @@ export class FilteringFunctionFactory {
         }
         return func;
     }
+
+    static getFilteringString(filterBy: Filter, value: string) {
+        return `${filterBy} = ${value}`;
+    }
 }
 
 export enum Filter {

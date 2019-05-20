@@ -5,5 +5,7 @@ export class HeartstoneConfig {
     static info = HeartstoneConfig.apiUrl + "info";
     static cards = HeartstoneConfig.apiUrl + "cards";
 
-    static useDatabase = false;
+    static dbName = "Heartstone.db"
+    static useDatabase = true;
+    static clearDatabase = true;
 }

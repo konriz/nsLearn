@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HeartstoneDatabaseService } from "./database.service";
+import { HeartstoneDatabaseService } from "./persistence/database.service";
 import { Card } from "./heartstone.dto";
 
 @Injectable()
@@ -8,8 +8,8 @@ export class HeartstoneDao {
     constructor(private database: HeartstoneDatabaseService){
     }
 
-    insertCard(card: Card){
-        this.database.insert([card]);
+    initDatabase(): Promise<string>{
+        return this.database.init();
     }
 
     insertCards(cards: Card[]){
@@ -17,15 +17,15 @@ export class HeartstoneDao {
     }
 
     getAllCards(){
-        return this.database.fetch();
+        this.database.fetch();
     }
 
     dropTable() {
         this.database.drop();
     }
 
-    clearDatabase() {
-        this.database.clear();
+    clearDatabase(): Promise<string> {
+        return this.database.clear();
     }
 
 }

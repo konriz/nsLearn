@@ -8,7 +8,7 @@ import { BrowseComponent } from "./browse/browse.component";
 import { HeartstoneModel } from "./heartstone.model";
 import { HeartstoneService } from "./heartstone.service";
 import { ZoomComponent } from "./card/zoom.component";
-import { HeartstoneDatabaseService } from "./database.service";
+import { HeartstoneDatabaseService } from "./persistence/database.service";
 import { HeartstoneDao } from "./heartstone.dao";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 
