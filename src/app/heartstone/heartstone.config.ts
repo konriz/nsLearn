@@ -7,5 +7,4 @@ export class HeartstoneConfig {
 
     static dbName = "Heartstone.db"
     static useDatabase = true;
-    static clearDatabase = true;
 }

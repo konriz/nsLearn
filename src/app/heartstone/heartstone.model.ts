@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { Card } from "./heartstone.dto";
 import { HeartstoneRepository } from "./heartstone.repository";
 
@@ -12,10 +12,12 @@ export class HeartstoneModel {
     constructor(private repository: HeartstoneRepository) {
     }
 
-    init() {
-        this.repository.getCards().then(
-            cards => this.cards = cards
-        )
+    loadCards() {
+        this.repository.getCards().then(cards => this.setCards(cards));
+    }
+
+    private setCards(cards: Card[]){
+        this.cards = cards;
     }
 
     selectCard(index: number){

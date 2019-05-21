@@ -4,74 +4,44 @@ import { Card } from "./heartstone.dto";
 import { HeartstoneService } from "./heartstone.service";
 import { HeartstoneConfig } from "./heartstone.config";
 
+const TAG = "Repository:";
+
 @Injectable()
 export class HeartstoneRepository {
 
-    private _cards: Promise<Card[]>;
-    
+
     constructor(private api: HeartstoneService, private database: HeartstoneDatabaseService){
     }
 
     getCards(): Promise<Card[]> {
-
         return new Promise(
             resolve => {
-                this.downloadCards().then(
-                    (cards) => {
-                        if(HeartstoneConfig.useDatabase){
-                            this.database.init().then(
-                                log => {
-                                    console.log(log);
-                                    this.database.insert(cards)
-                                    .then(
-                                        log => {
-                                            console.log(log);
-                                            this.database.fetch().then(
-                                                dbCards => {
-                                                    resolve(dbCards);
-                                                }
-                                            );
-                                    });
-                                }
-                            )
-                        }
-                        resolve(cards);
-                    }
-                )
+                this.getAllCards()
+                .then(resolve)
             }
         )
     }
 
     private downloadCards(): Promise<Card[]> {
-        if(!this._cards){
-            this._cards = new Promise((resolve, reject) => {
-                this.api.getCards().subscribe(
-                    res => resolve(this.createCardsList(res)),
-                    err => reject(err)
-                );
-            });
-        }
-        return this._cards;
-    }
-
-    private initDatabase(): Promise<string>{
-        return this.database.init();
+        console.log(TAG, "Downloading cards.")
+        return new Promise((resolve, reject) => {
+            this.api.getCards().subscribe(
+                res => resolve(this.createCardsList(res)),
+                reject
+            );
+        });
     }
 
     private insertCards(cards: Card[]){
-        this.database.insert(cards);
+        return this.database.insert(cards);
     }
 
     private getAllCards(){
-        this.database.fetch();
+        return this.database.fetch();
     }
 
     private dropTable() {
         this.database.drop();
-    }
-
-    private clearDatabase(): Promise<string> {
-        return this.database.clear();
     }
 
     private createCardsList(cardsSetJson: JSON){
@@ -85,7 +55,7 @@ export class HeartstoneRepository {
                 cardsList.push(new Card(cardsInSet[card]));
             }
         });
-        console.log(`Downloaded ${setsCount} sets with ${cardsList.length} cards total.`)
+        console.log(TAG, `Downloaded ${setsCount} sets with ${cardsList.length} cards total.`)
         return cardsList;
     }
 

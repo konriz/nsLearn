@@ -3,7 +3,7 @@ var Sqlite = require("nativescript-sqlite");
 
 export class QueryBuilder {
 
-    static database(dbName: string) {
+    static openDatabase(dbName: string) {
         return new Sqlite(dbName);
     } 
 

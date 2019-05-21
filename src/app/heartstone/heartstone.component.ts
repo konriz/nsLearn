@@ -1,7 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
-import { ActivatedRoute } from "@angular/router";
-import { HeartstoneModel } from "./heartstone.model";
 
 @Component(
     {
@@ -10,13 +8,9 @@ import { HeartstoneModel } from "./heartstone.model";
         templateUrl: "./heartstone.component.html"
     }
 )
-export class HeartstoneComponent implements OnInit {
+export class HeartstoneComponent{
 
-    constructor(private routerExtension: RouterExtensions, private activeRoute: ActivatedRoute, private model: HeartstoneModel) { }
-
-    ngOnInit() {
-        this.model.init();
-    }
+    constructor(private routerExtension: RouterExtensions) { }
 
     goToBrowse(){
         this.routerExtension.navigate(["/heartstone/browse"]);
