@@ -9,8 +9,8 @@ import { HeartstoneModel } from "./heartstone.model";
 import { HeartstoneService } from "./heartstone.service";
 import { ZoomComponent } from "./card/zoom.component";
 import { HeartstoneDatabaseService } from "./persistence/database.service";
-import { HeartstoneDao } from "./heartstone.dao";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
+import { HeartstoneRepository } from "./heartstone.repository";
 
 @NgModule({
     imports: [
@@ -33,7 +33,7 @@ import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
         CardComponent,
         ZoomComponent
     ],
-    providers: [HeartstoneModel, HeartstoneService, HeartstoneDatabaseService, HeartstoneDao],
+    providers: [HeartstoneModel, HeartstoneService, HeartstoneDatabaseService, HeartstoneRepository],
     schemas: [NO_ERRORS_SCHEMA]
 })
 export class HeartstoneModule {}

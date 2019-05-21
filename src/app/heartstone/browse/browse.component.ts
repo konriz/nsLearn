@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
 import { HeartstoneModel } from "../heartstone.model";
 import { ListViewEventData } from "nativescript-ui-listview";
@@ -15,7 +15,7 @@ import { GroupingFunctionFactory, Group } from "./functionsFactory/grouping-func
         styleUrls: ["./browse.component.css"]
     }
 )
-export class BrowseComponent implements OnInit {
+export class BrowseComponent {
 
     private groupingText = "Group by: ";
     private groupingMode = "";
@@ -27,10 +27,6 @@ export class BrowseComponent implements OnInit {
     @ViewChild("cardsList") cardsListComponent: RadListViewComponent;
 
     constructor(private model: HeartstoneModel, private routerExtension: RouterExtensions) {
-    }
-
-    ngOnInit(){
-        this.model.getCards();
     }
 
     cardDetails(args: ListViewEventData){

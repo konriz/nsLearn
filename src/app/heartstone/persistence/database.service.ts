@@ -13,12 +13,21 @@ export class HeartstoneDatabaseService {
     }
 
     init(): Promise<string> {
+        if(this.database) {
+            QueryBuilder.deleteAllCards(this.database).then(
+                () => {
+                    return Promise.resolve("Database cleared.")
+                }
+            )
+        }
         return new Promise((resolve) => {
             QueryBuilder.database(HeartstoneConfig.dbName)
-            .then(db => QueryBuilder.createTable(db)
-            .then(() => this.database = db)
-            .then(resolve("Database created."))
-        );
+            .then(
+                db => QueryBuilder.createTable(db)
+                    .then(this.database = db)
+                    .then(QueryBuilder.deleteAllCards(this.database))
+                    .then(resolve("Database created."))
+            );
         });
         
     }
@@ -31,24 +40,43 @@ export class HeartstoneDatabaseService {
         });
     }
 
-    insert(cards: Card[]){
-        cards.forEach(card => {
-            QueryBuilder.insertCard(this.database, card)
-            .then();
-        });
-        console.log("Cards inserted.")
+    insert(cards: Card[]): Promise<string> {
+        let counter = 0;
+        return new Promise(
+            resolve => {
+                cards.forEach(card => {
+                    QueryBuilder.insertCard(this.database, card)
+                    .then(counter ++);
+                });
+                resolve(`${counter} cards inserted.`)
+            }
+        );
     }
 
-    fetch() {
-        QueryBuilder.getAllCards(this.database)
-        .then(rows => {
-            console.log("Rows fetched.")
-            return rows;
-        });
-        
+    fetch(): Promise<Card[]> {
+        return new Promise(
+            resolve => {
+                QueryBuilder.getAllCards(this.database)
+                .then(
+                    rows => {
+                        let cards = this.createCards(rows);
+                        console.log(`${cards.length} cards fetched.`);
+                        resolve(cards);
+                    }
+                );
+            }
+        )
     }
 
-    private createCardJson(row){
+    private createCards(rows): Card[]{
+        let cards = [];
+        for(var row in rows){
+            cards.push(new Card(this.createCardJson(row)));
+        }
+        return cards;
+    }
+
+    private createCardJson(row): JSON {
         let cardJson: any = {
             "cardId": row[1], 
             "dbfId": row[2], 
@@ -74,7 +102,4 @@ export class HeartstoneDatabaseService {
         QueryBuilder.dropDatabase(this.database)
         .then(console.log("Table dropped."));
     }
-
-    
-
 }
