@@ -14,14 +14,25 @@ export class HeartstoneDatabaseService {
         QueryBuilder.openDatabase(dbName)
         .then(
             database => {
-                QueryBuilder.createTable(database).then(
+                QueryBuilder.createTable(database)
+                .then(
                     () => this.database = database
                 )
+            }
+        )
+        .then(
+            () => {
+                if(HeartstoneConfig.cleanDatabase) {
+                    this.clean()
+                    .then(
+                        log => console.log(TAG, log)
+                    )
+                }
             }
         );
     }
 
-    clear(): Promise<any> {
+    private clean(): Promise<any> {
         return QueryBuilder.deleteAllCards(this.database);
     }
 
@@ -40,13 +51,17 @@ export class HeartstoneDatabaseService {
 
     fetch(): Promise<Card[]> {
         return new Promise(
-            resolve => {
+            (resolve, reject) => {
                 QueryBuilder.getAllCards(this.database)
                 .then(
                     rows => {
                         let cards = this.createCards(rows);
                         console.log(TAG, `${cards.length} cards fetched.`);
-                        resolve(cards);
+                        if(cards.length > 0){
+                            resolve(cards);
+                        } else {
+                            reject(cards);
+                        }
                     }
                 );
             }

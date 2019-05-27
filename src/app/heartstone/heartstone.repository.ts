@@ -9,35 +9,45 @@ const TAG = "Repository:";
 @Injectable()
 export class HeartstoneRepository {
 
-
     constructor(private api: HeartstoneService, private database: HeartstoneDatabaseService){
     }
 
     getCards(): Promise<Card[]> {
-        return new Promise(
-            resolve => {
-                this.getAllCards()
-                .then(resolve)
-            }
-        )
+        return Promise.resolve(this.getAllCards())
     }
 
     private downloadCards(): Promise<Card[]> {
-        console.log(TAG, "Downloading cards.")
         return new Promise((resolve, reject) => {
             this.api.getCards().subscribe(
                 res => resolve(this.createCardsList(res)),
                 reject
-            );
+            )
         });
     }
 
-    private insertCards(cards: Card[]){
+    private insertCards(cards: Card[]): Promise<string>{
         return this.database.insert(cards);
     }
 
-    private getAllCards(){
-        return this.database.fetch();
+    private getAllCards(): Promise<Card[]>{
+        return new Promise<Card[]>(
+            resolve => {
+                this.database.fetch()
+                .then(
+                    cards => resolve(cards))
+                .catch(
+                    empty => {
+                    this.downloadCards()
+                    .then(cards => {
+                        this.insertCards(cards)
+                        .then(log => {
+                            console.log(TAG, log);
+                            resolve(this.getAllCards());
+                        })
+                    })
+                })
+            },
+        )
     }
 
     private dropTable() {

@@ -11,7 +11,7 @@
     </GridLayout>
 
     <GridLayout tkExampleTitle tkToggleNavButton row="1">
-            <RadListView #cardsList *ngIf="model.cards" [items]="model.cards" selectionBehavior="Press" (itemSelected)="cardDetails($event)" enableCollapsibleGroups="false">
+            <RadListView #cardsList *ngIf="!loading" [items]="cards" selectionBehavior="Press" (itemSelected)="cardDetails($event)" pullToRefresh="true" pullToRefreshnitiated="{{ onPullToRefresh }}">
                 <ng-template tkListItemTemplate let-item="item">
                     <GridLayout columns="auto, *" class="row m-5 p-5">
                         <Label [text]="item.name" col="0"></Label>
@@ -20,7 +20,7 @@
                 </ng-template>
             </RadListView>
                 
-            <StackLayout *ngIf="!model.cards" class="m-5">
+            <StackLayout *ngIf="loading" class="m-5">
                 <Label text="Loading cards..." horizontalAlignment="center" textWrap="true"></Label>
                 <ActivityIndicator #activityIndicator class="activity-indicator" busy="true"></ActivityIndicator>    
             </StackLayout>

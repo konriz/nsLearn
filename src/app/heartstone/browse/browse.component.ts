@@ -6,6 +6,7 @@ import { RadListViewComponent } from "nativescript-ui-listview/angular/listview-
 import { SortingFunctionFactory, Order, Sort } from "./functionsFactory/sorting-func-factory";
 import { FilteringFunctionFactory, Filter } from "./functionsFactory/filtering-func-factory";
 import { GroupingFunctionFactory, Group } from "./functionsFactory/grouping-func-factory";
+import { Card } from "../heartstone.dto";
 
 @Component(
     {
@@ -24,13 +25,31 @@ export class BrowseComponent implements OnInit {
     private filteringText = "Filter by: ";
     private filteringMode = "";
 
+    private cards: Card[];
+    private loading: boolean;
+
     @ViewChild("cardsList") cardsListComponent: RadListViewComponent;
 
     constructor(private model: HeartstoneModel, private routerExtension: RouterExtensions) {
     }
 
     ngOnInit() {
-        this.model.loadCards();
+        this.loadCards();
+    }
+
+    onPullToRefresh(args: ListViewEventData) {
+        this.loadCards();
+        args.object.notifyPullToRefreshFinished();
+    }
+
+    private loadCards() {
+        this.loading = true;
+        this.model.loadCards().then(
+            cards => {
+                this.cards = cards;
+                this.loading = false;
+            }
+        );
     }
 
     cardDetails(args: ListViewEventData){
